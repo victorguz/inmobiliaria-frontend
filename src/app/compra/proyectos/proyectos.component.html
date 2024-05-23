@@ -12,6 +12,27 @@
       ></field-form>
       <field-form [form]="form" name="latitud" label="Latitud"></field-form>
       <field-form [form]="form" name="longitud" label="Longitud"></field-form>
+      <field-form
+        type="date"
+        [form]="form"
+        name="fecha"
+        label="Fecha"
+      ></field-form>
+      <field-form
+        type="number"
+        [form]="form"
+        name="valor"
+        label="Valor"
+      ></field-form>
+      <button
+        mat-flat-button
+        color="primary"
+        class="text-light"
+        [disabled]="form.invalid"
+        (click)="guardar()"
+      >
+        Guardar
+      </button>
     </mat-card-content>
   </mat-card>
 </article>
