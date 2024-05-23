@@ -1,7 +1,14 @@
 <article>
-  <section class="map"></section>
+  <div class="map" leaflet [leafletOptions]="options"></div>
+  <button
+    mat-fab
+    class="mat-fab-button bg-danger text-light"
+    (click)="showForm = !showForm"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
 
-  <mat-card>
+  <mat-card *ngIf="showForm">
     <mat-card-content>
       <h3>Crear marcador</h3>
       <br />

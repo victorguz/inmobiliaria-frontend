@@ -1,16 +1,32 @@
 article {
   position: relative;
   background: var(--secondary);
-  height: 100%;
+  height: calc(100vh - 128px);
 
   mat-card {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 500000;
 
     min-width: 300px;
     width: 30vw;
     height: fit-content;
+  }
+
+  .bg-danger {
+    background-color: var(--danger) !important ;
+  }
+  .mat-fab-button {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    z-index: 500000;
+  }
+
+  .map {
+    height: 100%;
+    padding: 0;
   }
 }

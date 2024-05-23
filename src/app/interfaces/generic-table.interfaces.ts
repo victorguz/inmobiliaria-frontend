@@ -1,5 +1,3 @@
-import { ModuleOption, ModuleOptionType, ModulePermissionType } from '../modules.config';
-
 export interface GenericTableColumn<T> {
   name: keyof T | 'actions';
   isSortable?: boolean;
@@ -14,10 +12,6 @@ export class GenericAction<T> {
   imagen?: string;
   text?: string;
   icon?: string | ((row: T) => string) = 'check';
-  hasPermission?: {
-    module: ModuleOption | ModuleOptionType;
-    action: ModulePermissionType;
-  };
   disabled?: boolean | ((row: T) => boolean);
   isNotButton?: boolean;
   tooltip?: string;

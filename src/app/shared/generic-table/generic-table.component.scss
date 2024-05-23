@@ -1,0 +1,110 @@
+.table-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .mat-mdc-table {
+    max-width: 100vw;
+    width: 100%;
+    height: fit-content;
+    overflow-x: auto;
+    border-radius: var(--table-radius);
+
+    .mat-mdc-header-row {
+      height: var(--field-height);
+      background-color: var(--light);
+    }
+    .mat-mdc-header-cell {
+      border-bottom: 1px solid var(--endeavour) !important;
+      opacity: 1;
+      padding: 0.25rem !important;
+      white-space: nowrap;
+      font-weight: bold;
+      &:first-child {
+        padding-left: 1rem !important;
+        border-radius: var(--table-radius) 0 0 var(--table-radius);
+      }
+      &:last-child {
+        padding-right: 1rem !important;
+        border-radius: 0 var(--table-radius) var(--table-radius) 0;
+      }
+    }
+
+    .mat-mdc-row {
+      cursor: pointer;
+      &:hover {
+        background-color: #f5f9ff;
+      }
+
+      &.active * span {
+        font-weight: 600;
+      }
+
+      .mat-mdc-cell {
+        border: none;
+        padding: 0.3rem !important;
+
+        .mobile-label {
+          display: none;
+        }
+        &:first-child {
+          padding-left: 1rem !important;
+          border-radius: var(--table-radius) 0 0 var(--table-radius) !important;
+        }
+        &:last-child {
+          padding-right: 1rem !important;
+          border-radius: 0 var(--table-radius) var(--table-radius) 0 !important;
+        }
+        &.cell-html {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          padding: 0 !important;
+          * {
+            word-wrap: break-word !important;
+            max-width: 100%;
+            max-width: 30vw;
+          }
+        }
+      }
+    }
+  }
+
+  .mat-mdc-paginator {
+    border-radius: 0 0 var(--table-radius) var(--table-radius);
+  }
+}
+
+@media (max-width: 992px) {
+  .mat-mdc-table {
+    .mat-mdc-header-row {
+      display: none;
+    }
+
+    .mat-mdc-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      height: fit-content;
+      border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
+      width: 100%;
+
+      .mat-mdc-cell {
+        display: flex;
+        width: 100%;
+        border: none;
+        word-break: break-all !important;
+
+        &:first-child {
+          padding-left: 1rem !important;
+        }
+
+        .mobile-label {
+          display: flex;
+          font-weight: bold;
+          margin-right: 0.3rem;
+        }
+      }
+    }
+  }
+}
