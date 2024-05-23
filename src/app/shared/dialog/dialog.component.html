@@ -1,0 +1,32 @@
+<article
+  class="d-flex flex-column align-items-center justify-content-between gap-3 h-100 w-100 p-3"
+>
+  <h3 class="text-center" [innerHTML]="data.options.title ?? 'Aviso'"></h3>
+
+  <section
+    class="d-flex flex-column align-items-center justify-content-center h-100"
+  >
+    @if(data.options.alertClass){
+    <div
+      class="alert text-center {{ data.options.alertClass }} h-100 m-0"
+      [innerHTML]="data.options.message"
+    ></div>
+    }@else {
+    <div class="text-center" [innerHTML]="data.options.message"></div>
+    }
+  </section>
+  <section footer>
+    <div class="d-flex align-items-center justify-content-center gap-3 w-100">
+      <button
+        *ngIf="data.type == 'confirmation'"
+        mat-stroked-button
+        (click)="onCancel()"
+      >
+        {{ data.options.cancelText || "Cancelar" }}
+      </button>
+      <button mat-flat-button color="primary" (click)="onOk()" cdkFocusInitial>
+        {{ data.options.okText || "Aceptar" }}
+      </button>
+    </div>
+  </section>
+</article>

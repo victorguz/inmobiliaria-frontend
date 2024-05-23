@@ -1,0 +1,18 @@
+<article class="spinner">
+  <div class="content">
+    <div class="d-flex align-items-center gap-1">
+      <div class="title {{ data.options.color || 'text-info' }} ">
+        <mat-icon fontSet="material-symbols-rounded">
+          {{ data.options.icon ?? "help" }}
+        </mat-icon>
+        <strong>
+          {{ "GENERIC.spinner." + (data.options.color ?? "text-info") }}
+        </strong>
+      </div>
+    </div>
+    <button class="btn btn-close" (click)="onOk()"></button>
+  </div>
+  <div class="message">
+    {{ print(data.options.message) }}
+  </div>
+</article>

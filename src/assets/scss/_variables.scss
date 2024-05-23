@@ -1,0 +1,41 @@
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+$body-background: #f0f2f5;
+
+$primary: #7b8be9;
+$primary-light: #bfc7f4;
+$secondary: #ededed;
+$success: #23c592;
+$info: #118bef;
+$warning: #ffc107;
+$danger: #ff3f3f;
+$light: #f0f2f5;
+$dark: #32325d;
+
+$default-radius: 10px;
+$button-radius: 20px;
+$field-radius: 20px;
+$table-radius: 20px;
+$card-radius: 20px;
+
+$field-height: 56px;
+
+:root {
+  --body-background: #f0f2f5;
+  --default-radius: 10px;
+  --button-radius: 50px;
+  --field-radius: 20px;
+  --table-radius: 20px;
+  --card-radius: 20px;
+
+  --field-height: 56px;
+
+  --primary: #7b8be9;
+  --primary-light: #bfc7f4;
+  --secondary: #ededed;
+  --success: #61b197;
+  --info: #118bef;
+  --warning: #ffc107;
+  --danger: #ff3f3f;
+  --light: #f0f2f5;
+  --dark: #32325d;
+}

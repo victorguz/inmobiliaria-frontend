@@ -1,0 +1,29 @@
+
+::-webkit-scrollbar {
+  /* Tamaño del scroll en vertical */
+  width: 6px;
+  /* Tamaño del scroll en horizontal */
+  height: 6px;
+}
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+::-webkit-scrollbar-thumb {
+  background: rgb(172, 172, 172);
+  border-radius: 4px;
+
+  &:hover {
+    background: rgba(143, 143, 143, 0.5);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+/* Cambiamos el fondo cuando esté en active */
+::-webkit-scrollbar-thumb:active {
+  background-color: rgba(114, 114, 114, 0.5);
+}
+
+/* Ponemos un color de fondo y redondeamos las esquinas del track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}

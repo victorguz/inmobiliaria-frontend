@@ -1,0 +1,28 @@
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  gap: 0.3rem;
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .message {
+      width: 100%;
+
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}

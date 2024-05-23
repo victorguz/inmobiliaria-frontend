@@ -1,0 +1,126 @@
+@if(field){ @if(isField){
+
+<mat-form-field
+  appearance="outline"
+  [formGroup]="form"
+  class="field-form"
+  [ngClass]="{
+    'field-form-white': background == 'white',
+    'field-form-light': background == 'light',
+    hideHint
+  }"
+>
+  <mat-label *ngIf="showLabel">{{ label }} </mat-label>
+  @if(matIconPrefix){
+  <mat-icon
+    matIconPrefix
+    fontSet="material-symbols-rounded"
+    [ngStyle]="{ color: iconColor }"
+  >
+    {{ matIconPrefix }}
+  </mat-icon>
+  } @if(matIconSuffix && isSuffixButton){
+  <button matSuffix mat-icon-button (click)="onClickSuffix()">
+    <mat-icon
+      fontSet="material-symbols-rounded"
+      [ngStyle]="{ color: iconColor }"
+    >
+      {{ matIconSuffix }}
+    </mat-icon>
+  </button>
+  } @else if (matIconSuffix){
+  <mat-icon
+    matSuffix
+    fontSet="material-symbols-rounded"
+    [ngStyle]="{ color: iconColor }"
+  >
+    {{ matIconSuffix }}
+  </mat-icon>
+  } @if(isText){
+  <input
+    matInput
+    type="text"
+    [formControlName]="name"
+    [placeholder]="placeholder"
+    [maxlength]="maxLength"
+    [readonly]="readonly"
+    (input)="setMaxLength()"
+  />
+  }@else if(isNumber){
+  <input
+    matInput
+    type="number"
+    [formControlName]="name"
+    [placeholder]="placeholder"
+    [maxlength]="maxLength"
+    [readonly]="readonly"
+    (input)="setMaxLength()"
+    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+  />
+  }@else if(isPassword){
+  <input
+    matInput
+    type="password"
+    [formControlName]="name"
+    [placeholder]="placeholder"
+    [maxlength]="maxLength"
+    [readonly]="readonly"
+    (input)="setMaxLength()"
+  />
+  }@else if(isDate){
+
+  <div class="date-picker-container" (click)="picker.open()">
+    <input
+      matInput
+      type="text"
+      [formControlName]="name"
+      [placeholder]="placeholder"
+      [matDatepicker]="picker"
+      [readonly]="true"
+    />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+  </div>
+  } @else if(isSelect){
+  <mat-select [formControlName]="name" [placeholder]="placeholder">
+    @for(item of items; track items){
+    <mat-option value="{{ item[bindValue] }}">
+      {{ item[bindLabel] }}
+    </mat-option>
+    }
+  </mat-select>
+  } @else if(isTextArea){
+  <textarea
+    matInput
+    type="text"
+    [formControlName]="name"
+    [placeholder]="placeholder"
+    [maxlength]="maxLength"
+    [readonly]="readonly"
+    (input)="setMaxLength()"
+  ></textarea>
+  }
+
+  <mat-error>
+    <span>
+      {{ error ?? "Campo requerido" }}
+    </span>
+    <mat-icon [matTooltip]="tooltip" class="cursor-pointer">info</mat-icon>
+  </mat-error>
+</mat-form-field>
+}@else {
+<div class="field-form d-flex flex-column gap-2" [formGroup]="form">
+  <mat-label>{{ label }} </mat-label>
+  @if(isCheckbox){
+  <mat-checkbox [formControlName]="name"></mat-checkbox>
+  } @else if(isToggle){
+  <mat-slide-toggle color="primary" [formControlName]="name"></mat-slide-toggle>
+  }
+  <mat-error *ngIf="field.invalid && (field.touched || field.dirty)">
+    <span>
+      {{ error ?? "Campo requerido" }}
+    </span>
+    <mat-icon [matTooltip]="tooltip" class="cursor-pointer">info</mat-icon>
+  </mat-error>
+</div>
+} }

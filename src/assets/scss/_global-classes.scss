@@ -1,0 +1,74 @@
+.icon-button {
+  min-width: auto !important;
+  width: 48px !important;
+  height: 48px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  mat-icon {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.alert-success {
+  background-color: rgba($color: $success, $alpha: 0.3);
+  border-color: $success;
+  color: $success;
+}
+.alert-danger {
+  background-color: rgba($color: $danger, $alpha: 0.3);
+  border-color: $danger;
+  color: $danger;
+}
+.alert-warning {
+  background-color: rgba($color: $warning, $alpha: 0.3);
+  border-color: $warning;
+  color: $warning;
+}
+.alert-info {
+  background-color: rgba($color: $info, $alpha: 0.3);
+  border-color: $info;
+  color: $info;
+}
+
+.text-success {
+  color: $success;
+}
+.text-danger {
+  color: $danger;
+}
+.text-warning {
+  color: $warning;
+}
+.text-info {
+  color: $info;
+}
+
+.container,
+.container-lg {
+  @media screen and (min-width: 992px) {
+    padding: 0 2rem;
+  }
+}
+.hover {
+  border: 1px solid transparent;
+  border-radius: var(--default-radius);
+  &:hover {
+    border: 1px solid var(--primary);
+    cursor: pointer;
+  }
+}
+
+.bg-secondary {
+  background-color: var(--secondary) !important;
+}
+

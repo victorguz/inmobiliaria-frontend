@@ -1,0 +1,62 @@
+@use "@angular/material" as mat;
+@use "@material/shape" as shape;
+
+$custom-primary-palette: (
+  main: #7b8be9,
+  lighter: #d7dcf8,
+  darker: #5e6edf,
+  200: #7b8be9,
+  // For slide toggle,
+  contrast:
+    (
+      main: #000,
+      lighter: #000,
+      darker: #fff,
+    ),
+);
+
+$custom-primary: mat.define-palette(
+  $custom-primary-palette,
+  main,
+  lighter,
+  darker
+);
+$custom-red-palette: (
+  main: #ff3f3f,
+  lighter: #d7dcf8,
+  darker: #fc2b2b,
+  200: #ff3f3f,
+  // For slide toggle,
+  contrast:
+    (
+      main: #000,
+      lighter: #000,
+      darker: #fff,
+    ),
+);
+
+$custom-primary: mat.define-palette(
+  $custom-primary-palette,
+  main,
+  lighter,
+  darker
+);
+$custom-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$custom-warn: mat.define-palette(
+  $custom-red-palette,
+  main,
+  lighter,
+  darker
+);
+
+$custom-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $custom-primary,
+      accent: $custom-accent,
+      warn: $custom-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($custom-theme);

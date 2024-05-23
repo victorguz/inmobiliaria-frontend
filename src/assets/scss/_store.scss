@@ -1,0 +1,59 @@
+.cards-grid {
+  // display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  // gap: 1rem;
+
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .mat-mdc-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 1rem;
+      > * {
+        width: 100%;
+      }
+      .card-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 200px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          border-radius: var(--card-radius);
+        }
+      }
+
+      .details {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+.on-hover {
+  cursor: pointer;
+}
+
+.cant-select {
+  opacity: 0.4;
+}
+
+.store-cart-dialog {
+  .mat-mdc-dialog-surface {
+    height: 100%;
+    border-radius: var(--card-radius) 0 0 var(--card-radius) !important;
+  }
+}
