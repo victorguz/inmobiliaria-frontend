@@ -13,4 +13,12 @@ export const routes: Routes = [
       import('./compra/compra.component').then((m) => m.CompraComponent),
     loadChildren: () => import('./compra/compra.routes').then((m) => m.routes),
   },
+  {
+    path: 'auth',
+    loadComponent: () =>
+      import('./auth/auth.component').then((m) => m.AuthComponent),
+    loadChildren: () => import('./auth/auth.routes').then((m) => m.routes),
+  },
+  {path:"",redirectTo:"auth",pathMatch:"prefix"},
+  {path:"**",redirectTo:"auth",pathMatch:"prefix"},
 ];

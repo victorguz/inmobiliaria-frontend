@@ -8,11 +8,14 @@ import { FieldFormComponent } from './field-form/field-form.component';
 import { MaterialModule } from './material.module';
 import { DialogComponent } from './dialog/dialog.component';
 import { GenericTableComponent } from './generic-table/generic-table.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 const DECLARATIONS = [
   SpinnerComponent,
   FieldFormComponent,
-  DialogComponent,GenericTableComponent
+  DialogComponent,
+  GenericTableComponent,
+  NavbarComponent,
 ];
 const IMPORTS = [
   CommonModule,

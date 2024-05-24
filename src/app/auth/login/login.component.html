@@ -1,1 +1,31 @@
-<p>login works!</p>
+<article
+  class="d-flex align-items-center justify-content-center h-100 bg-secondary"
+>
+  <mat-card>
+    <mat-card-content>
+      <h3>Iniciar sesión</h3>
+      <br />
+      <field-form
+        [form]="form"
+        name="username"
+        label="Nombre de usuario"
+      ></field-form>
+      <field-form
+        [form]="form"
+        type="password"
+        name="password"
+        label="Contraseña"
+      ></field-form>
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="text-light"
+        [disabled]="form.invalid"
+        (click)="iniciar()"
+      >
+        Iniciar
+      </button>
+    </mat-card-content>
+  </mat-card>
+</article>
