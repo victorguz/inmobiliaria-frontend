@@ -8,7 +8,7 @@ export interface Proyecto {
 }
 
 export interface EstadisticaProyecto {
-  mes: string;
+  mes:string;
   cantidad: number;
-  total: number;
+  total: any;
 }

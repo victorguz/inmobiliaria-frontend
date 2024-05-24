@@ -21,6 +21,7 @@ export class ProyectosService {
   }
   async calcularEstadisticas(): Promise<EstadisticaProyecto[]> {
     const result = await this.obtenerTodos();
+    //mapear el arreglo en el nuevo formato
     const mapped = result.map((val) => {
       return {
         mes: this.obtenerMesEnEspanol(val.fecha),
@@ -28,8 +29,29 @@ export class ProyectosService {
         total: val.valor,
       };
     });
+    // Objeto para almacenar las sumas
+    const sumas: { [mes: string]: { cantidad: number; total: number } } = {};
 
-    return mapped;
+    // Iterar sobre las estadísticas y sumar
+    mapped.forEach((estadistica) => {
+      const { mes, cantidad, total } = estadistica;
+      if (!sumas[mes]) {
+        sumas[mes] = { cantidad: 0, total: 0 };
+      }
+      sumas[mes].cantidad += cantidad;
+      sumas[mes].total += total;
+    });
+
+    // Construir el nuevo arreglo con las sumas
+    const estadisticasFinales: EstadisticaProyecto[] = [];
+    for (const mes in sumas) {
+      estadisticasFinales.push({
+        mes,
+        cantidad: sumas[mes].cantidad,
+        total: sumas[mes].total,
+      });
+    }
+    return estadisticasFinales;
   }
 
   obtenerConId(id: string) {

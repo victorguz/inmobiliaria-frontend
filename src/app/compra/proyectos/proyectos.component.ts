@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProyectosService } from '../../services/proyectos.service';
 import { DialogService } from '../../services/dialog.service';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import * as Leaflet from 'leaflet';
+import { Proyecto } from '../../interfaces/proyecto.interface';
 @Component({
   selector: 'app-proyectos',
   standalone: true,
@@ -12,15 +13,20 @@ import * as Leaflet from 'leaflet';
   templateUrl: './proyectos.component.html',
   styleUrl: './proyectos.component.scss',
 })
-export class ProyectosComponent {
+export class ProyectosComponent implements AfterViewInit {
+  @ViewChild('map') mapElement!: ElementRef;
+
   form!: FormGroup;
   showForm: boolean = false;
+  items: Proyecto[] = [];
+  map: any;
 
   options: Leaflet.MapOptions = {
     layers: this.getLayers(),
     zoom: 12,
     center: new Leaflet.LatLng(10.96854, -74.78132),
   };
+
   constructor(
     private fb: FormBuilder,
     private poyectosService: ProyectosService,
@@ -29,23 +35,49 @@ export class ProyectosComponent {
     this.iniciarFormulario();
   }
 
+  ngAfterViewInit(): void {
+    this.map = Leaflet.DomUtil.get(this.mapElement.nativeElement);
+    const interval = setInterval(() => {
+      if (this.map.addLayer) {
+        this.obtenerTodos();
+        clearInterval(interval);
+      }
+    }, 100);
+  }
   iniciarFormulario() {
     this.form = this.fb.nonNullable.group({
-      descripcion: ['', [Validators.required]],
-      latitud: ['', [Validators.required]],
-      longitud: ['', [Validators.required]],
+      descripcion: ['Descripcion #' + Date.now(), [Validators.required]],
+      latitud: [
+        '10.96854',
+        [Validators.required, Validators.pattern(/^-?\d*[.]?\d+$/)],
+      ],
+      longitud: [
+        '-74.78132',
+        [Validators.required, Validators.pattern(/^-?\d*[.]?\d+$/)],
+      ],
       fecha: [new Date(), [Validators.required]],
-      valor: [null, [Validators.required]],
+      valor: [Math.random() * 1000000, [Validators.required]],
     });
   }
 
   async guardar() {
     await this.poyectosService.crear(this.form.getRawValue());
     this.form.reset();
+    this.showForm = false;
     this.dialogService.showSuccess('Proyecto creado exitosamente.');
   }
+
   async obtenerTodos() {
-    await this.poyectosService.obtenerTodos();
+    this.items = await this.poyectosService.obtenerTodos();
+    console.log(this.items);
+
+    this.items
+      .filter((item) => Number(item.latitud) && Number(item.longitud))
+      .forEach((val) => {
+        console.log(val);
+
+        this.addLayer(val);
+      });
   }
 
   getLayers(): Leaflet.Layer[] {
@@ -56,28 +88,20 @@ export class ProyectosComponent {
           attribution: '&copy; OpenStreetMap contributors',
         } as Leaflet.TileLayerOptions
       ),
-      ...this.getMarkers(),
     ] as Leaflet.Layer[];
   }
-
-  getMarkers(): Leaflet.Marker[] {
-    return [
-      new Leaflet.Marker(new Leaflet.LatLng(43.5121264, 16.4700729), {
+  addLayer(item: Proyecto) {
+    const marker = new Leaflet.Marker(
+      new Leaflet.LatLng(Number(item.latitud), Number(item.longitud)),
+      {
         icon: new Leaflet.Icon({
           iconSize: [50, 41],
           iconAnchor: [13, 41],
           iconUrl: 'assets/red-marker.svg',
         }),
-        title: 'Workspace',
-      } as Leaflet.MarkerOptions),
-      new Leaflet.Marker(new Leaflet.LatLng(43.5074826, 16.4390046), {
-        icon: new Leaflet.Icon({
-          iconSize: [50, 41],
-          iconAnchor: [13, 41],
-          iconUrl: 'assets/red-marker.svg',
-        }),
-        title: 'Riva',
-      } as Leaflet.MarkerOptions),
-    ] as Leaflet.Marker[];
+        title: item.descripcion,
+      } as Leaflet.MarkerOptions
+    );
+    this.map.addLayer(marker);
   }
 }

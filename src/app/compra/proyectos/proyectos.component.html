@@ -1,5 +1,12 @@
 <article>
-  <div class="map" leaflet [leafletOptions]="options"></div>
+  <div
+    class="map h-100 w-100 d-flex align-items-center justify-content-center"
+    #map
+    leaflet
+    [leafletOptions]="options"
+  >
+    <p>Cargando mapa...</p>
+  </div>
   <button
     mat-fab
     class="mat-fab-button bg-danger text-light"
@@ -17,8 +24,18 @@
         name="descripcion"
         label="Descripcion"
       ></field-form>
-      <field-form [form]="form" name="latitud" label="Latitud"></field-form>
-      <field-form [form]="form" name="longitud" label="Longitud"></field-form>
+      <field-form
+        [form]="form"
+        name="latitud"
+        label="Latitud"
+        error="Debe ser un valor numerico"
+      ></field-form>
+      <field-form
+        [form]="form"
+        name="longitud"
+        label="Longitud"
+        error="Debe ser un valor numerico"
+      ></field-form>
       <field-form
         type="date"
         [form]="form"
