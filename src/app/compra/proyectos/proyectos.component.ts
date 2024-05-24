@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProyectosService } from '../../services/proyectos.service';
@@ -21,29 +21,31 @@ export class ProyectosComponent implements AfterViewInit {
   items: Proyecto[] = [];
   map: any;
 
-  options: Leaflet.MapOptions = {
-    layers: this.getLayers(),
-    zoom: 12,
-    center: new Leaflet.LatLng(10.96854, -74.78132),
-  };
-
   constructor(
     private fb: FormBuilder,
     private poyectosService: ProyectosService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private cdRef: ChangeDetectorRef
   ) {
     this.iniciarFormulario();
   }
 
   ngAfterViewInit(): void {
-    this.map = Leaflet.DomUtil.get(this.mapElement.nativeElement);
-    const interval = setInterval(() => {
-      if (this.map.addLayer) {
-        this.obtenerTodos();
-        clearInterval(interval);
-      }
-    }, 100);
+    this.iniciarMapa();
+    this.obtenerTodos();
+    this.cdRef.detectChanges();
   }
+
+  iniciarMapa() {
+    this.map = Leaflet.map('map', {
+      zoom: 12,
+      center: new Leaflet.LatLng(10.96854, -74.78132),
+    });
+    Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+    }).addTo(this.map);
+  }
+
   iniciarFormulario() {
     this.form = this.fb.nonNullable.group({
       descripcion: ['Descripcion #' + Date.now(), [Validators.required]],
@@ -64,17 +66,16 @@ export class ProyectosComponent implements AfterViewInit {
     await this.poyectosService.crear(this.form.getRawValue());
     this.form.reset();
     this.showForm = false;
+    this.addLayer(this.form.getRawValue() as Proyecto);
     this.dialogService.showSuccess('Proyecto creado exitosamente.');
   }
 
   async obtenerTodos() {
     this.items = await this.poyectosService.obtenerTodos();
-    console.log(this.items);
 
     this.items
       .filter((item) => Number(item.latitud) && Number(item.longitud))
       .forEach((val) => {
-        console.log(val);
 
         this.addLayer(val);
       });
@@ -90,8 +91,8 @@ export class ProyectosComponent implements AfterViewInit {
       ),
     ] as Leaflet.Layer[];
   }
-  addLayer(item: Proyecto) {
-    const marker = new Leaflet.Marker(
+  addLayer(item: Proyecto, center: boolean = false) {
+    new Leaflet.Marker(
       new Leaflet.LatLng(Number(item.latitud), Number(item.longitud)),
       {
         icon: new Leaflet.Icon({
@@ -101,7 +102,8 @@ export class ProyectosComponent implements AfterViewInit {
         }),
         title: item.descripcion,
       } as Leaflet.MarkerOptions
-    );
-    this.map.addLayer(marker);
+    ).addTo(this.map);
+    center &&
+      this.map.setView([Number(item.latitud), Number(item.longitud)], 15);
   }
 }

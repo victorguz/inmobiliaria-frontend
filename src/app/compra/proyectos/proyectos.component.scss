@@ -8,7 +8,7 @@ article {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 500000;
+    z-index: 900;
 
     min-width: 300px;
     width: 30vw;
@@ -22,7 +22,7 @@ article {
     position: absolute;
     bottom: 50px;
     right: 50px;
-    z-index: 500000;
+    z-index: 900;
   }
 
   .map {

@@ -1,9 +1,7 @@
 <article>
   <div
+    id="map"
     class="map h-100 w-100 d-flex align-items-center justify-content-center"
-    #map
-    leaflet
-    [leafletOptions]="options"
   >
     <p>Cargando mapa...</p>
   </div>
@@ -11,6 +9,7 @@
     mat-fab
     class="mat-fab-button bg-danger text-light"
     (click)="showForm = !showForm"
+    [disabled]="!this.map?.addLayer"
   >
     <mat-icon>add</mat-icon>
   </button>
